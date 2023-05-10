@@ -29,6 +29,7 @@ public class OrdersController {
     @Autowired
     ProductServices productServices;
 
+    // create an order
     @PostMapping(value= {"/orders/create"})
     public String createOrder( @RequestBody Orders order) throws ParseException {
         Coupon coupon = couponServices.getByVoucher(order.getCouponName());
@@ -75,6 +76,7 @@ public class OrdersController {
         return price >= 99 && price <= 4999;
     }
 
+    // check product quantity
     public boolean isProductAvailable(int productId){
         System.out.println(productServices.getProductById(productId).getQuantity() >0);
         return productServices.getProductById(productId).getQuantity() >0;
@@ -98,18 +100,20 @@ public class OrdersController {
         return nowDate.compareTo(endDate) < 0;
     }
 
-    // Check day is Sunday or not
+    // Check day is Sunday or publicHoliday
     public boolean isSundayOrPublicDay(){
         Format f = new SimpleDateFormat("EEEE");
         String str = f.format(new Date());
         return str.equals("Sunday") || Holiday.isPublicDay();
     }
 
+    //check the user who claimed offer already.
     public boolean isUserExist(String username, String coupon){
         System.out.println(ordersServices.isExistsOrderByUserNameAndCoupon(username,coupon));
         return ordersServices.isExistsOrderByUserNameAndCoupon(username,coupon);
     }
 
+    // check offer valid or not
     @GetMapping(value={"/orders/checkOffer/{couponName}"})
     public String validCoupon(@PathVariable String couponName) {
         try{
