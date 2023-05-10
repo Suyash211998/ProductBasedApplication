@@ -16,7 +16,6 @@ public class Product {
 
     private int quantity;
 
-    private double price;
 
 
     public int getProductId() {
@@ -43,11 +42,4 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }
